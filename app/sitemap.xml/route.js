@@ -1,8 +1,9 @@
 import tools from '@/config/tools'
-import { siteConfig } from '@/config/site'
+
+export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  const SITE_URL = siteConfig.url
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://tools.navahq.in'
 
   const staticPages = [
     { loc: '/', priority: '1.0', changefreq: 'daily' },

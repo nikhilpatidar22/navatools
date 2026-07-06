@@ -24,6 +24,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="canonical" href={siteConfig.url} />
+        <meta name="google-site-verification" content="h9tbxcpS3sygXm0zlnZ1nwqOFD4hTuODJ7MAOCrXRp4" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

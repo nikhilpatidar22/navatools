@@ -1,9 +1,10 @@
+import { GeistSans } from 'geist/font/sans'
 import { Providers } from './providers'
 import { siteConfig } from '@/config/site'
 import './globals.css'
 
 export const metadata = {
-  title: `${siteConfig.name} - 1000+ Free Online Tools | All-in-One Productivity Platform`,
+  title: `${siteConfig.name} - 1000+ Free Online Tools`,
   description: siteConfig.description,
   keywords: siteConfig.keywords,
   openGraph: {
@@ -42,7 +43,7 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className="antialiased bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+      <body className={`${GeistSans.variable} font-sans antialiased bg-[#FAFAFA] dark:bg-[#09090B] text-[#111111] dark:text-white`}>
         <Providers>{children}</Providers>
       </body>
     </html>

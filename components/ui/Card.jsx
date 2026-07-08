@@ -5,8 +5,8 @@ const Card = React.forwardRef(({ className, children, hover = false, ...props },
   <div
     ref={ref}
     className={cn(
-      'rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm',
-      hover && 'hover:shadow-lg hover:border-gray-200 dark:hover:border-gray-700 hover:-translate-y-0.5 transition-all duration-200',
+      'rounded-[12px] border border-[#E5E7EB] dark:border-[rgba(255,255,255,0.08)] bg-white dark:bg-[#111113]',
+      hover && 'hover:border-[#D1D5DB] dark:hover:border-[rgba(255,255,255,0.15)] transition-all duration-200',
       className
     )}
     {...props}
@@ -17,12 +17,12 @@ const Card = React.forwardRef(({ className, children, hover = false, ...props },
 Card.displayName = 'Card'
 
 const CardHeader = React.forwardRef(({ className, children, ...props }, ref) => (
-  <div ref={ref} className={cn('p-6 pb-0', className)} {...props}>{children}</div>
+  <div ref={ref} className={cn('p-5 pb-0', className)} {...props}>{children}</div>
 ))
 CardHeader.displayName = 'CardHeader'
 
 const CardContent = React.forwardRef(({ className, children, ...props }, ref) => (
-  <div ref={ref} className={cn('p-6', className)} {...props}>{children}</div>
+  <div ref={ref} className={cn('p-5', className)} {...props}>{children}</div>
 ))
 CardContent.displayName = 'CardContent'
 

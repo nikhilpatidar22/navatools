@@ -1,52 +1,57 @@
 'use client'
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
 import { Card, CardContent } from '@/components/ui/Card'
 import { CopyButton } from '@/components/ui/CopyButton'
 import { Fingerprint, Play, AlertCircle } from 'lucide-react'
 
 export default function JWTDecoderTool() {
-  const [token, setToken] = useState('')
-  const [header, setHeader] = useState('')
-  const [payload, setPayload] = useState('')
+  const [input, setInput] = useState('')
+  const [decoded, setDecoded] = useState(null)
   const [error, setError] = useState(null)
 
-  const handleDecode = () => {
-    setError(null)
-    setHeader('')
-    setPayload('')
-    if (!token.trim()) return
-    const parts = token.trim().split('.')
-    if (parts.length !== 3) { setError('Invalid JWT format. A JWT must have 3 parts separated by dots.'); return }
+  const decodeBase64 = (str) => {
     try {
-      const decodedHeader = JSON.parse(atob(parts[0].replace(/-/g, '+').replace(/_/g, '/')))
-      const decodedPayload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')))
-      setHeader(JSON.stringify(decodedHeader, null, 2))
-      setPayload(JSON.stringify(decodedPayload, null, 2))
+      return JSON.parse(atob(str.replace(/-/g, '+').replace(/_/g, '/')))
     } catch {
-      setError('Invalid JWT token. Cannot decode base64 payload.')
+      return null
+    }
+  }
+
+  const handleDecode = () => {
+    setError(null); setDecoded(null)
+    try {
+      const parts = input.trim().split('.')
+      if (parts.length !== 3) { setError('Invalid JWT format'); return }
+      const header = decodeBase64(parts[0])
+      const payload = decodeBase64(parts[1])
+      if (!header || !payload) { setError('Invalid JWT encoding'); return }
+      setDecoded({ header, payload, signature: parts[2] })
+    } catch {
+      setError('Failed to decode JWT')
     }
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <Card>
         <CardContent className="p-6 md:p-8 space-y-5">
-          <Input label="JWT Token" value={token} onChange={(e) => setToken(e.target.value)} placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." />
-          {error && <div className="flex items-center gap-2 p-3 rounded-xl bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 text-sm"><AlertCircle className="h-4 w-4 shrink-0" />{error}</div>}
-          <Button onClick={handleDecode} size="lg" className="w-full"><Play className="h-5 w-5 mr-2" /> Decode JWT</Button>
-          {header && (
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Header</label>
-                <pre className="p-4 rounded-xl bg-gray-50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 text-xs font-mono overflow-auto max-h-48">{header}</pre>
-                <CopyButton text={header} />
+          <textarea value={input} onChange={(e) => setInput(e.target.value)} placeholder="Paste your JWT token here..." rows={4} className="w-full rounded-[10px] border border-[#E5E7EB] dark:border-[rgba(255,255,255,0.08)] bg-white dark:bg-transparent p-4 text-sm font-mono text-[#111111] dark:text-white placeholder:text-[#6B7280] dark:placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#111111] dark:focus:ring-white" spellCheck={false} />
+          <Button onClick={handleDecode} disabled={!input.trim()} size="lg" className="w-full"><Play className="h-4 w-4 mr-2" strokeWidth={1.75} /> Decode</Button>
+          {error && <div className="flex items-center gap-2 p-3 rounded-[10px] bg-[#FEF2F2] dark:bg-[rgba(220,38,38,0.1)] text-[#DC2626] text-sm"><AlertCircle className="h-4 w-4 shrink-0" strokeWidth={1.75} />{error}</div>}
+          {decoded && (
+            <div className="space-y-4">
+              <div className="p-4 rounded-[10px] border border-[#E5E7EB] dark:border-[rgba(255,255,255,0.08)]">
+                <div className="flex items-center justify-between mb-2"><h3 className="text-sm font-medium text-[#111111] dark:text-white">Header</h3><CopyButton text={JSON.stringify(decoded.header, null, 2)} /></div>
+                <pre className="text-xs font-mono text-[#6B7280] dark:text-[#A1A1AA] whitespace-pre-wrap">{JSON.stringify(decoded.header, null, 2)}</pre>
               </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Payload</label>
-                <pre className="p-4 rounded-xl bg-gray-50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 text-xs font-mono overflow-auto max-h-48">{payload}</pre>
-                <CopyButton text={payload} />
+              <div className="p-4 rounded-[10px] border border-[#E5E7EB] dark:border-[rgba(255,255,255,0.08)]">
+                <div className="flex items-center justify-between mb-2"><h3 className="text-sm font-medium text-[#111111] dark:text-white">Payload</h3><CopyButton text={JSON.stringify(decoded.payload, null, 2)} /></div>
+                <pre className="text-xs font-mono text-[#6B7280] dark:text-[#A1A1AA] whitespace-pre-wrap">{JSON.stringify(decoded.payload, null, 2)}</pre>
+              </div>
+              <div className="p-4 rounded-[10px] border border-[#E5E7EB] dark:border-[rgba(255,255,255,0.08)]">
+                <h3 className="text-sm font-medium text-[#111111] dark:text-white mb-2">Signature</h3>
+                <p className="text-xs font-mono text-[#6B7280] dark:text-[#A1A1AA] break-all">{decoded.signature}</p>
               </div>
             </div>
           )}

@@ -26,38 +26,38 @@ export default function UUIDGeneratorTool() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <Card>
         <CardContent className="p-6 md:p-8 space-y-5">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <Hash className="h-6 w-6 text-indigo-500" />
-              <h3 className="font-semibold text-gray-900 dark:text-white">UUID v4 Generator</h3>
+              <Hash className="h-5 w-5 text-[#6B7280]" strokeWidth={1.75} />
+              <h3 className="font-medium text-[#111111] dark:text-white">UUID v4 Generator</h3>
             </div>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
-                <label className="text-sm text-gray-500">Count:</label>
-                <select value={count} onChange={(e) => setCount(Number(e.target.value))} className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm">
+                <label className="text-sm text-[#6B7280] dark:text-[#A1A1AA]">Count:</label>
+                <select value={count} onChange={(e) => setCount(Number(e.target.value))} className="rounded-[10px] border border-[#E5E7EB] dark:border-[rgba(255,255,255,0.08)] bg-white dark:bg-transparent px-3 py-1.5 text-sm text-[#111111] dark:text-white">
                   {[1, 5, 10, 25, 50, 100].map((n) => <option key={n} value={n}>{n}</option>)}
                 </select>
               </div>
-              <Button onClick={handleGenerate}><RefreshCw className="h-4 w-4 mr-2" /> Generate</Button>
-              {uuids.length > 0 && <Button variant="outline" onClick={copyAll}><Copy className="h-4 w-4 mr-2" /> Copy All</Button>}
+              <Button onClick={handleGenerate}><RefreshCw className="h-4 w-4 mr-2" strokeWidth={1.75} /> Generate</Button>
+              {uuids.length > 0 && <Button variant="outline" onClick={copyAll}><Copy className="h-4 w-4 mr-2" strokeWidth={1.75} /> Copy All</Button>}
             </div>
           </div>
           {uuids.length > 0 ? (
             <div className="space-y-1.5">
               {uuids.map((uuid, i) => (
-                <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 group">
-                  <code className="text-sm font-mono text-gray-700 dark:text-gray-300">{uuid}</code>
+                <div key={i} className="flex items-center justify-between p-3 rounded-[10px] border border-[#E5E7EB] dark:border-[rgba(255,255,255,0.08)] bg-[#FAFAFA] dark:bg-transparent group">
+                  <code className="text-sm font-mono text-[#111111] dark:text-white">{uuid}</code>
                   <CopyButton text={uuid} />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-10 text-gray-400 dark:text-gray-500">
-              <Hash className="h-12 w-12 mx-auto mb-2 opacity-50" />
-              <p>Click Generate to create UUIDs</p>
+            <div className="text-center py-10 text-[#6B7280] dark:text-[#A1A1AA]">
+              <Hash className="h-12 w-12 mx-auto mb-2 opacity-50" strokeWidth={1.75} />
+              <p className="text-sm">Click Generate to create UUIDs</p>
             </div>
           )}
         </CardContent>

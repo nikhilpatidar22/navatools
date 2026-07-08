@@ -9,11 +9,17 @@ export function Providers({ children }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <Navbar />
-      <main className="min-h-screen pt-16">{children}</main>
+      <main className="min-h-screen pt-[72px]">{children}</main>
       <Footer />
       <SearchOverlay />
       <Toaster position="bottom-right" toastOptions={{
-        style: { borderRadius: '12px', background: '#333', color: '#fff', fontSize: '14px' },
+        style: {
+          borderRadius: '10px',
+          background: '#111111',
+          color: '#FAFAFA',
+          fontSize: '14px',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.06)',
+        },
         duration: 3000,
       }} />
     </ThemeProvider>

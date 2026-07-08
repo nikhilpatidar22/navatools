@@ -1,1 +1,77 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist", "Inter", system-ui, sans-serif;
+
+  --color-bg-primary: #FAFAFA;
+  --color-bg-secondary: #FFFFFF;
+  --color-text-primary: #111111;
+  --color-text-secondary: #6B7280;
+  --color-border-primary: #E5E7EB;
+  --color-border-hover: #D1D5DB;
+  --color-accent: #111111;
+  --color-success: #16A34A;
+  --color-warning: #F59E0B;
+  --color-error: #DC2626;
+
+  --color-dark-bg-primary: #09090B;
+  --color-dark-bg-secondary: #111113;
+  --color-dark-text-primary: #FFFFFF;
+  --color-dark-text-secondary: #A1A1AA;
+  --color-dark-border: rgba(255, 255, 255, 0.08);
+
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-elevated: 0 8px 24px rgba(0, 0, 0, 0.06);
+
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-slide-up: slide-up 0.25s ease-out;
+  --animate-scale-in: scale-in 0.15s ease-out;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
+
+@layer base {
+  * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+  ::selection {
+    background: rgba(0, 0, 0, 0.08);
+  }
+  .dark ::selection {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
+  .dark ::-webkit-scrollbar-thumb { background: #27272A; }
+}
+
+@layer utilities {
+  .shadow-card {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  .shadow-elevated {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+  .dark .shadow-card {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  .dark .shadow-elevated {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+}

@@ -1,26 +1,23 @@
-import { Card, CardContent } from '@/components/ui/Card'
 import { cn } from '@/utils/cn'
 
 export function FAQ({ items, className }) {
   if (!items?.length) return null
   return (
-    <div className={cn('space-y-4', className)}>
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Frequently Asked Questions</h2>
-      <div className="space-y-3">
+    <div className={cn('', className)}>
+      <h2 className="text-2xl font-semibold text-[#111111] dark:text-white mb-6 tracking-tight">Frequently Asked Questions</h2>
+      <div className="divide-y divide-[#E5E7EB] dark:divide-[rgba(255,255,255,0.08)] border-t border-b border-[#E5E7EB] dark:border-[rgba(255,255,255,0.08)]">
         {items.map((faq, i) => (
-          <Card key={i} className="overflow-hidden">
-            <details className="group">
-              <summary className="p-5 cursor-pointer list-none flex items-center justify-between">
-                <h3 className="font-medium text-gray-900 dark:text-white pr-4">{faq.q}</h3>
-                <div className="shrink-0 text-gray-400 group-open:rotate-180 transition-transform duration-200">
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-                </div>
-              </summary>
-              <CardContent className="pt-0 pb-5">
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{faq.a}</p>
-              </CardContent>
-            </details>
-          </Card>
+          <details key={i} className="group">
+            <summary className="py-4 cursor-pointer list-none flex items-center justify-between">
+              <h3 className="font-medium text-[#111111] dark:text-white pr-4 text-sm">{faq.q}</h3>
+              <div className="shrink-0 text-[#6B7280] dark:text-[#A1A1AA] group-open:rotate-180 transition-transform duration-200">
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+              </div>
+            </summary>
+            <div className="pb-4">
+              <p className="text-sm text-[#6B7280] dark:text-[#A1A1AA] leading-relaxed max-w-2xl">{faq.a}</p>
+            </div>
+          </details>
         ))}
       </div>
     </div>
